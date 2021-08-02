@@ -15,6 +15,7 @@
     padding: 2rem;
     font-size: 3rem;
     grid-area: header;
+    cursor: default;
 }
 
 #header i {
@@ -45,7 +46,8 @@
 #bod {
     grid-area: main;
     color: black;
-    background-color: #F2BC94
+    background-color: #F2BC94;
+    cursor: pointer;
 }
 
 .nav {
@@ -53,6 +55,10 @@
     cursor: pointer;
     padding: 0.5rem;
     font-size: 1.1rem;
+}
+
+.nav:hover {
+    background-color: #290c0a
 }
 
 #new {
@@ -75,6 +81,7 @@
 #bodHead {
     font-size: 2rem;
     margin-bottom: 1rem;
+    cursor: default;
 }
 
 #bodAdd {
