@@ -10,6 +10,7 @@ module.exports = {
         initialpage: './src/scripts/initialpage.js',
         form: './src/scripts/form.js',
         todo: './src/scripts/todo.js',
+        event: './src/scripts/event.js',
     },
     devtool: 'inline-source-map',
     plugins: [

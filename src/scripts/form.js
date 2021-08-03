@@ -1,4 +1,5 @@
-import "@fortawesome/fontawesome-free/js/all"
+import "@fortawesome/fontawesome-free/js/all";
+import { addEvent } from './events.js'
 
 const inputs = (
     function() {
@@ -44,8 +45,8 @@ const inputs = (
         span.innerHTML = '<i class="fas fa-paper-plane">';
         submit.textContent = 'Submit';
         submit.appendChild(span);
-        submit.setAttribute('type', 'submit');
-        submit.setAttribute('value', 'submit');
+        submit.setAttribute('type', 'button');
+        submit.setAttribute('value', 'button');
         submit.setAttribute('id', 'submit');
         form.appendChild(selectlabel);
         form.appendChild(select);
@@ -66,12 +67,13 @@ const formDisplay = (
     function() {
         const container = document.querySelector('div#container');
         const create = () => {
-            container.appendChild(inputs.form)
-            container.appendChild(background.blur)
+            container.appendChild(inputs.form);
+            container.appendChild(background.blur);
+            addEvent.submitListener();
         }
         const remove = () => {
-            container.removeChild(inputs.form)
-            container.removeChild(background.blur)
+            container.removeChild(inputs.form);
+            container.removeChild(background.blur);
         }
         return { create, remove };
     }
