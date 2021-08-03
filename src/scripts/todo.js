@@ -24,3 +24,5 @@ const tasks = (title, description, dueDate, priority, status) => {
     return {get, set }
 
 }
+
+export { tasks }

@@ -4,15 +4,15 @@ const addEvent = (
     function() {
         const windowListener = () => {
             window.addEventListener('load', function() {
-                const bodAdd = document.querySelector('div#bodAdd')
-                bodAdd.addEventListener('click', formDisplay.create)
+                const bodAdd = document.querySelector('div#bodAdd');
+                bodAdd.addEventListener('click', formDisplay.create);
             })
         }
         const submitListener = () => {
             const submit = document.querySelector('#submit');
-            submit.addEventListener('click', formDisplay.remove)
+            submit.addEventListener('click', formDisplay.remove);
         }
-        return { windowListener, submitListener }
+        return { windowListener, submitListener };
     }
 )()
 

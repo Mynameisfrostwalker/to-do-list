@@ -1,13 +1,14 @@
 import "@fortawesome/fontawesome-free/js/all";
-import { addEvent } from './events.js'
+import { addEvent } from './events.js';
+import { collectInputs } from './formInputs.js'
 
 const inputs = (
     function() {
         const form = document.createElement('form');
-        const createInputs = (type, name, b) => {
+        const createInputs = (type, name, descript) => {
             const label = document.createElement('label');
             label.setAttribute('for', name);
-            label.textContent = b + ":";
+            label.textContent = descript + ":";
             let input = undefined;
             if (type === "textarea") {
                 input = document.createElement('textarea');
@@ -16,7 +17,7 @@ const inputs = (
                 input.setAttribute('type', type)
             }
             input.setAttribute('id', name);
-            input.setAttribute('name', b);
+            input.setAttribute('name', descript);
             input.setAttribute('required', "");
             form.appendChild(label);
             form.appendChild(input);
@@ -72,6 +73,11 @@ const formDisplay = (
             addEvent.submitListener();
         }
         const remove = () => {
+            collectInputs.createTasks();
+            let childrens = inputs.form.children;
+            for (let i = 0; i < childrens.length; i++) {
+                childrens[i].value = "";
+            }
             container.removeChild(inputs.form);
             container.removeChild(background.blur);
         }
