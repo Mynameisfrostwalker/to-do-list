@@ -1,6 +1,7 @@
 import "@fortawesome/fontawesome-free/js/all";
 import { addEvent } from './events.js';
 import { collectInputs } from './formInputs.js'
+import { sortTasks } from './formInputs.js'
 
 const inputs = (
     function() {
@@ -15,6 +16,9 @@ const inputs = (
             } else {
                 input = document.createElement("input");
                 input.setAttribute('type', type)
+            }
+            if (type === "date") {
+                input.setAttribute('min', `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`)
             }
             input.setAttribute('id', name);
             input.setAttribute('name', descript);
@@ -35,9 +39,14 @@ const inputs = (
             const option = document.createElement('option');
             option.setAttribute('id', value);
             option.setAttribute('value', value);
+            if (value === 'Choose urgency:') {
+                option.setAttribute('selected', "");
+                option.setAttribute('disabled', '')
+            }
             option.textContent = value;
             select.appendChild(option);
         }
+        createOptions('Choose urgency:')
         createOptions('High');
         createOptions('Medium');
         createOptions('Low');

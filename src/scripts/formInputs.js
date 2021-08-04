@@ -20,21 +20,21 @@ const sortTasks = (
         const createSortedArr = () => {
             if (collectInputs.todolist.length > 1) {
                 const sorted = collectInputs.todolist.sort(function(a, b) {
-                    if (isAfter(new Date(a.get.DueDate), new Date(b.get.DueDate))) {
+                    if (isAfter(new Date(a.get.DueDate()), new Date(b.get.DueDate()))) {
                         return 1;
                     }
-                    if (isBefore(new Date(a.get.DueDate), new Date(b.get.DueDate))) {
+                    if (isBefore(new Date(a.get.DueDate()), new Date(b.get.DueDate()))) {
                         return -1;
                     }
-                    if (isEqual(new Date(a.get.DueDate, new Date(b.get.DueDate)))) {
+                    if (isEqual(new Date(a.get.DueDate()), new Date(b.get.DueDate()))) {
                         return 0
                     }
                 });
                 return sorted;
-            } else { return todolist }
+            } else { return collectInputs.todolist }
         }
-        return { createSortedArr }
+        return { createSortedArr };
     }
 )()
 
-export { collectInputs }
+export { collectInputs, sortTasks }
