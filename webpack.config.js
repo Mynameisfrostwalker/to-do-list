@@ -11,6 +11,7 @@ module.exports = {
         form: './src/scripts/form.js',
         todo: './src/scripts/todo.js',
         event: './src/scripts/event.js',
+        formInputs: './src/scripts/formInputs.js',
     },
     devtool: 'inline-source-map',
     plugins: [
