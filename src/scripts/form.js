@@ -1,7 +1,7 @@
 import "@fortawesome/fontawesome-free/js/all";
 import { addEvent } from './events.js';
 import { collectInputs } from './formInputs.js'
-import { sortTasks } from './formInputs.js'
+import { renderTasks } from './todolistDisplay.js'
 
 const inputs = (
     function() {
@@ -39,14 +39,14 @@ const inputs = (
             const option = document.createElement('option');
             option.setAttribute('id', value);
             option.setAttribute('value', value);
-            if (value === 'Choose urgency:') {
+            if (value === '') {
                 option.setAttribute('selected', "");
                 option.setAttribute('disabled', '')
             }
             option.textContent = value;
             select.appendChild(option);
         }
-        createOptions('Choose urgency:')
+        createOptions('')
         createOptions('High');
         createOptions('Medium');
         createOptions('Low');
@@ -89,6 +89,7 @@ const formDisplay = (
             }
             container.removeChild(inputs.form);
             container.removeChild(background.blur);
+            renderTasks.render();
         }
         return { create, remove };
     }

@@ -151,3 +151,29 @@ select:active {
     height: 100%;
     z-index: 10;
 }
+
+.taskDiv {
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 50px;
+    height: 3rem;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 5px 5px 2px 2px black
+}
+
+.taskDiv:hover {
+    transform: translateY(-3px);
+}
+
+.buttonsDiv {
+    font-size: 1.5rem;
+    display: flex;
+}
+
+svg {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}

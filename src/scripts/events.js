@@ -5,7 +5,7 @@ const addEvent = (
         const windowListener = () => {
             window.addEventListener('load', function() {
                 const bodAdd = document.querySelector('div#bodAdd');
-                bodAdd.addEventListener('click', formDisplay.create);
+                bodAdd.children[0].addEventListener('click', formDisplay.create);
             })
         }
         const submitListener = () => {

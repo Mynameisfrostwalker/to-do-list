@@ -10,8 +10,9 @@ module.exports = {
         initialpage: './src/scripts/initialpage.js',
         form: './src/scripts/form.js',
         todo: './src/scripts/todo.js',
-        event: './src/scripts/event.js',
+        event: './src/scripts/events.js',
         formInputs: './src/scripts/formInputs.js',
+        todolistDisplay: './src/scripts/todolistDisplay.js'
     },
     devtool: 'inline-source-map',
     plugins: [
