@@ -80,6 +80,7 @@ const formDisplay = (
         const create = () => {
             container.appendChild(inputs.form);
             container.appendChild(background.blur);
+            addEvent.preventEnter();
             addEvent.submitListener();
         }
         const remove = () => {
@@ -92,7 +93,13 @@ const formDisplay = (
             container.removeChild(background.blur);
             renderTasks.render();
         }
-        return { create, remove };
+        const editForm = (values) => {
+            document.querySelector('#title').value = values.get.Title();
+            document.querySelector('#description').value = values.get.Description();
+            document.querySelector('#dueDate').value = values.get.DueDate();
+            document.querySelector('#select').value = values.get.Priority();
+        }
+        return { create, remove, editForm };
     }
 )()
 

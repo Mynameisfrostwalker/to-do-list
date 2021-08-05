@@ -1,11 +1,12 @@
 import { formatDistanceToNow } from "date-fns";
 
-const tasks = (title, description, dueDate, priority, status) => {
+const tasks = (title, description, dueDate, priority, status, id) => {
     let _title = title;
     let _description = description;
     let _dueDate = dueDate;
     let _priority = priority;
     let _status = status;
+    let _id = id;
 
     const get = {
         Title: () => _title,
@@ -14,6 +15,7 @@ const tasks = (title, description, dueDate, priority, status) => {
         Priority: () => _priority,
         Status: () => _status,
         TimeRemaining: () => formatDistanceToNow(new Date(_dueDate), { addSuffix: true }),
+        Id: () => _id,
     }
 
     const set = {

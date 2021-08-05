@@ -35,6 +35,7 @@ const aside = (
             } else { name.setAttribute('id', text); }
             const i = document.createElement('i')
             i.innerHTML = element
+            i.setAttribute('id', `${text}projects`)
             name.appendChild(i)
             const words = document.createElement('p');
             words.textContent = text;

@@ -9,9 +9,24 @@ const collectInputs = (
             const description = document.querySelector('#description');
             const dueDate = document.querySelector('#dueDate');
             const priority = document.querySelector('#select');
-            todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete"));
+            todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", todolist.length.toString()));
         }
-        return { createTasks, todolist };
+        const retieveTasks = (e) => {
+            let ident = e.currentTarget.parentNode.parentNode.getAttribute('id');
+            for (let i = 0; i < todolist.length; i++) {
+                if (ident === todolist[i].get.Id()) {
+                    return todolist[i];
+                }
+            }
+        }
+        const deleteTasks = (value) => {
+            for (let i = 0; i < todolist.length; i++) {
+                if (value === todolist[i].get.Id()) {
+                    todolist.splice(i, 1);
+                }
+            }
+        }
+        return { createTasks, todolist, retieveTasks, deleteTasks };
     }
 )()
 

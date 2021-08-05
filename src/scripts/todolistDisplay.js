@@ -1,5 +1,6 @@
 import { sortTasks } from './formInputs.js'
 import '@fortawesome/fontawesome-free/js/all'
+import { addEvent } from './events.js';
 
 const createTasksDivs = (
     function() {
@@ -27,7 +28,7 @@ const createTasksDivs = (
             const para2 = document.createElement('p');
             para1.textContent = arr[num].get.Title() + ':';
             para1.style['font-size'] = '1.5rem';
-            para2.textContent = arr[num].get.TimeRemaining() + ':';
+            para2.textContent = arr[num].get.TimeRemaining();
             infoDiv.appendChild(para1);
             infoDiv.appendChild(para2);
             div.appendChild(infoDiv);
@@ -35,8 +36,15 @@ const createTasksDivs = (
 
         const createButtons = (div) => {
             const buttonsDiv = document.createElement('div');
+            const button1Div = document.createElement('div');
+            const button2Div = document.createElement('div');
+            button1Div.classList.add('editButton');
+            button1Div.innerHTML = "<i class='fas fa-edit'></i>";
+            button2Div.classList.add('deleteButton')
+            button2Div.innerHTML = "<i class='fas fa-trash-alt'></i>"
             buttonsDiv.classList.add('buttonsDiv')
-            buttonsDiv.innerHTML = "<i class='fas fa-edit' id='editButton'></i><i class='fas fa-trash-alt' id='deleteButton'></i>"
+            buttonsDiv.appendChild(button1Div);
+            buttonsDiv.appendChild(button2Div);
             div.appendChild(buttonsDiv);
         }
 
@@ -57,6 +65,7 @@ const createTasksDivs = (
             for (let i = 0; i < tasks.length; i++) {
                 const taskDiv = document.createElement('div');
                 taskDiv.classList.add('taskDiv');
+                taskDiv.setAttribute('id', `${tasks[i].get.Id()}`);
                 createSlider(taskDiv);
                 createInfo(i, tasks, taskDiv);
                 createButtons(taskDiv);
@@ -78,6 +87,8 @@ const renderTasks = (
             }
             let div = createTasksDivs.create();
             tasksDisplay.appendChild(div);
+            addEvent.editButtonListener();
+            addEvent.deleteButtonListener();
         }
         return { render }
     }
