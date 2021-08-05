@@ -85,7 +85,7 @@
 }
 
 #bodAdd {
-    font-size: 1.5rem;
+    font-size: 3rem;
     margin-left: 1rem;
 }
 
@@ -165,7 +165,7 @@ select:active {
 }
 
 .taskDiv:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
 .buttonsDiv {
@@ -176,4 +176,81 @@ select:active {
 svg {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
+}
+
+svg:hover {
+    animation-name: shake;
+    animation-duration: 0.5s;
+    animation-iteration-count: 3;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(15deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.sliderDiv label {
+    margin-top: 0;
+}
+
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 6rem;
+    height: 2.5rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: all 0.4s;
+    border-radius: 34px;
+}
+
+.slider::before {
+    position: absolute;
+    content: '';
+    height: 2.1rem;
+    width: 2.1rem;
+    left: 4px;
+    bottom: 4px;
+    transition: 0.4s;
+    background-color: white;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider::before {
+    transform: translateX(50px);
 }
