@@ -103,4 +103,19 @@ const formDisplay = (
     }
 )()
 
-export { formDisplay }
+const projectInput = (
+    function() {
+        const inputCreate = () => {
+            const list = document.querySelector('#new');
+            const input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('name', 'projectInput');
+            input.setAttribute('id', 'projectInput');
+            input.setAttribute('placeholder', 'Enter project name');
+            list.children[3] = input;
+        }
+        return { inputCreate };
+    }
+)()
+
+export { formDisplay, projectInput };

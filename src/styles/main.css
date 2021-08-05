@@ -255,3 +255,7 @@ input:focus+.slider {
 input:checked+.slider::before {
     transform: translateX(50px);
 }
+
+.active {
+    background-color: #290c0a;
+}

@@ -33,6 +33,9 @@ const aside = (
                 const ul = document.createElement('ul');
                 name.appendChild(ul);
             } else { name.setAttribute('id', text); }
+            if (text === 'Default') {
+                name.classList.add('active')
+            }
             const i = document.createElement('i')
             i.innerHTML = element
             i.setAttribute('id', `${text}projects`)

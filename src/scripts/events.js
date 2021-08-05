@@ -1,4 +1,4 @@
-import { formDisplay } from './form.js';
+import { formDisplay, projectInput } from './DomInputs.js';
 import { collectInputs } from './formInputs.js'
 import { renderTasks } from './todolistDisplay.js'
 
@@ -51,7 +51,12 @@ const addEvent = (
             })
         }
 
-        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener };
+        const projectsButtonListener = () => {
+            const projectsButton = document.querySelector('#projects');
+            projectsButton.addEventListener('click', projectInput.inputCreate)
+        }
+
+        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener };
     }
 )()
 

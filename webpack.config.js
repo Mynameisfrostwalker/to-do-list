@@ -8,7 +8,7 @@ module.exports = {
     entry: {
         main: './src/scripts/main.js',
         initialpage: './src/scripts/initialpage.js',
-        form: './src/scripts/form.js',
+        DomInputs: './src/scripts/DomInputs.js',
         todo: './src/scripts/todo.js',
         event: './src/scripts/events.js',
         formInputs: './src/scripts/formInputs.js',
