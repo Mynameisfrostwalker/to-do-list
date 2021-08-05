@@ -1,7 +1,8 @@
 import "@fortawesome/fontawesome-free/js/all";
 import { addEvent } from './events.js';
-import { collectInputs } from './formInputs.js'
-import { renderTasks } from './todolistDisplay.js'
+import { collectInputs } from './formInputs.js';
+import { renderTasks } from './todolistDisplay.js';
+import { format } from 'date-fns';
 
 const inputs = (
     function() {
@@ -18,7 +19,7 @@ const inputs = (
                 input.setAttribute('type', type)
             }
             if (type === "date") {
-                input.setAttribute('min', `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`)
+                input.setAttribute('min', `${format(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), 'yyyy-MM-dd')}`)
             }
             input.setAttribute('id', name);
             input.setAttribute('name', descript);
