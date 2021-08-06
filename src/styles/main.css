@@ -64,7 +64,21 @@
 
 #new {
     margin-left: 1rem;
+    margin-top: 0rem;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+}
+
+#new ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     margin-top: -0.5rem;
+}
+
+#new ul li {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 #Projects {
@@ -258,4 +272,19 @@ input:checked+.slider::before {
 
 .active {
     background-color: #290c0a;
+}
+
+#projectInput {
+    height: 1rem;
+    font-size: 0.7rem;
+    margin-top: 0rem;
+    width: 70%;
+}
+
+.projectList {
+    padding: 0.3rem;
+}
+
+.projectList:hover {
+    background-color: #290c0a
 }

@@ -31,7 +31,9 @@ const aside = (
             if (text === '') {
                 name.setAttribute('id', 'new');
                 const ul = document.createElement('ul');
+                ul.setAttribute('id', 'projectList');
                 name.appendChild(ul);
+                name.classList.remove('nav');
             } else { name.setAttribute('id', text); }
             if (text === 'Default') {
                 name.classList.add('active')

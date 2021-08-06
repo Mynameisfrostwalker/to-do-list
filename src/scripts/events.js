@@ -1,4 +1,4 @@
-import { formDisplay, projectInput } from './DomInputs.js';
+import { formDisplay, projectInput } from './DomDisplay.js';
 import { collectInputs } from './formInputs.js'
 import { renderTasks } from './todolistDisplay.js'
 
@@ -56,7 +56,19 @@ const addEvent = (
             projectsButton.addEventListener('click', projectInput.inputCreate)
         }
 
-        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener };
+        const projectsInputListener = () => {
+            const projectsInput = document.querySelector('#projectInput');
+            projectsInput.addEventListener('keypress', function(e) {
+                if (e.keyCode === 13) {
+                    console.log('b')
+                    e.preventDefault();
+                    projectInput.projectDisplay()
+                    projectInput.projectRemove()
+                }
+            })
+        }
+
+        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener };
     }
 )()
 

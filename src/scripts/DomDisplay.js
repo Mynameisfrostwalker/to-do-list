@@ -106,15 +106,34 @@ const formDisplay = (
 const projectInput = (
     function() {
         const inputCreate = () => {
-            const list = document.querySelector('#new');
+            const list = document.querySelector('#projects');
             const input = document.createElement('input');
             input.setAttribute('type', 'text');
             input.setAttribute('name', 'projectInput');
             input.setAttribute('id', 'projectInput');
             input.setAttribute('placeholder', 'Enter project name');
-            list.children[3] = input;
+            list.appendChild(input);
+            const projectsButton = document.querySelector('#projects');
+            projectsButton.removeEventListener('click', inputCreate);
+            addEvent.projectsInputListener();
         }
-        return { inputCreate };
+
+        const projectDisplay = () => {
+            const projectName = document.querySelector('#projectInput').value;
+            const projectList = document.querySelector('#projectList');
+            const li = document.createElement('li');
+            li.classList.add('projectList')
+            li.textContent = projectName;
+            projectList.appendChild(li);
+            addEvent.projectsButtonListener();
+        }
+
+        const projectRemove = () => {
+            const projectInput = document.querySelector('#projectInput')
+            projectInput.remove()
+        }
+
+        return { inputCreate, projectDisplay, projectRemove };
     }
 )()
 
