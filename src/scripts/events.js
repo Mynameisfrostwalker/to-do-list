@@ -1,6 +1,7 @@
 import { formDisplay, projectInput } from './DomDisplay.js';
-import { collectInputs } from './formInputs.js'
-import { renderTasks } from './todolistDisplay.js'
+import { collectInputs } from './formInputs.js';
+import { renderTasks } from './todolistDisplay.js';
+import { tabSwitchLogic } from './tab-switch.js';
 
 const addEvent = (
     function() {
@@ -46,8 +47,24 @@ const addEvent = (
         const deleteButtonListener = () => {
             const deleteButton = document.querySelectorAll('.deleteButton');
             deleteButton.forEach(button => {
-                console.log('nb')
                 button.addEventListener('click', deleter)
+            })
+        }
+
+        const completer = (event) => {
+            console.log('b')
+            collectInputs.changeStatus(event);
+            renderTasks.render()
+        }
+
+        const completeButtonListener = () => {
+            const sliderDiv = document.querySelectorAll('.sliderDiv');
+            sliderDiv.forEach(button => {
+                console.log('a');
+                button.addEventListener('click', completer, {
+                    capture: false,
+                    once: true,
+                })
             })
         }
 
@@ -60,7 +77,6 @@ const addEvent = (
             const projectsInput = document.querySelector('#projectInput');
             projectsInput.addEventListener('keypress', function(e) {
                 if (e.keyCode === 13) {
-                    console.log('b')
                     e.preventDefault();
                     projectInput.projectDisplay()
                     projectInput.projectRemove()
@@ -68,7 +84,14 @@ const addEvent = (
             })
         }
 
-        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener };
+        const clickableListener = () => {
+            const clickable = document.querySelector('.clickable');
+            clickable.forEach(elem => {
+                elem.addEventListener('click', tabSwitchLogic.changeDisplay)
+            })
+        }
+
+        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener, completeButtonListener, clickableListener };
     }
 )()
 

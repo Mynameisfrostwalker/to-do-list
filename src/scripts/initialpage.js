@@ -28,6 +28,9 @@ const aside = (
         const createLi = (name, element, text) => {
             name = document.createElement('li');
             name.classList.add('nav');
+            if (text !== 'Projects') {
+                name.classList.add('clickable')
+            }
             if (text === '') {
                 name.setAttribute('id', 'new');
                 const ul = document.createElement('ul');
@@ -85,6 +88,7 @@ const display = (
             container.appendChild(head.header);
             container.appendChild(aside.sidebar);
             container.appendChild(body.bod);
+
         }
         return { create }
     }

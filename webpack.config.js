@@ -12,7 +12,8 @@ module.exports = {
         todo: './src/scripts/todo.js',
         event: './src/scripts/events.js',
         formInputs: './src/scripts/formInputs.js',
-        todolistDisplay: './src/scripts/todolistDisplay.js'
+        todolistDisplay: './src/scripts/todolistDisplay.js',
+        tabSwitch: './src/scripts/tab-switch.js',
     },
     devtool: 'inline-source-map',
     plugins: [

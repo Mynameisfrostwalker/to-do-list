@@ -7,4 +7,6 @@ display.create();
 
 addEvent.windowListener();
 
+addEvent.clickableListener();
+
 addEvent.projectsButtonListener();

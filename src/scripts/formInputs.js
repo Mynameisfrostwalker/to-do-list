@@ -26,7 +26,22 @@ const collectInputs = (
                 }
             }
         }
-        return { createTasks, todolist, retieveTasks, deleteTasks };
+
+        const changeStatus = (e) => {
+            let ident = e.currentTarget.parentNode.getAttribute('id');
+            for (let i = 0; i < todolist.length; i++) {
+                if (ident === todolist[i].get.Id()) {
+                    let oldStatus = todolist[i].get.Status();
+                    if (oldStatus === 'incomplete') {
+                        todolist[i].set.Status('complete')
+                    } else if (oldStatus === 'complete') {
+                        todolist[i].set.Status('incomplete')
+                    }
+                }
+            }
+        }
+
+        return { createTasks, todolist, retieveTasks, deleteTasks, changeStatus };
     }
 )()
 

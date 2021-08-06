@@ -4,13 +4,17 @@ import { addEvent } from './events.js';
 
 const createTasksDivs = (
     function() {
-        const createSlider = (div) => {
+        const createSlider = (num, arr, div) => {
             const sliderDiv = document.createElement('div');
             sliderDiv.setAttribute('class', 'sliderDiv');
             const label = document.createElement('label');
             label.classList.add('switch')
             const input = document.createElement('input');
+            input.classList.add('check');
             input.setAttribute('type', 'checkbox');
+            if (arr[num].get.Status() === 'complete') {
+                input.checked = true;
+            }
             label.appendChild(input);
             const span = document.createElement('span');
             span.classList.add('slider');
@@ -49,7 +53,11 @@ const createTasksDivs = (
         }
 
         const editColors = (num, arr, div) => {
-            if (arr[num].get.Priority() === 'High') {
+            if (arr[num].get.Status() === 'complete') {
+                div.style["background-color"] = 'grey';
+                div.style['filter'] = 'blur(1px)';
+                div.style['opacity'] = 0.7;
+            } else if (arr[num].get.Priority() === 'High') {
                 div.style["background-color"] = 'red'
             } else if (arr[num].get.Priority() === 'Medium') {
                 div.style["background-color"] = 'yellow';
@@ -66,7 +74,7 @@ const createTasksDivs = (
                 const taskDiv = document.createElement('div');
                 taskDiv.classList.add('taskDiv');
                 taskDiv.setAttribute('id', `${tasks[i].get.Id()}`);
-                createSlider(taskDiv);
+                createSlider(i, tasks, taskDiv);
                 createInfo(i, tasks, taskDiv);
                 createButtons(taskDiv);
                 editColors(i, tasks, taskDiv);
@@ -89,6 +97,7 @@ const renderTasks = (
             tasksDisplay.appendChild(div);
             addEvent.editButtonListener();
             addEvent.deleteButtonListener();
+            addEvent.completeButtonListener();
         }
         return { render }
     }

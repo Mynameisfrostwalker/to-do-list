@@ -23,7 +23,7 @@ const inputs = (
             }
             input.setAttribute('id', name);
             input.setAttribute('name', descript);
-            input.setAttribute('required', "");
+            input.required = true;
             form.appendChild(label);
             form.appendChild(input);
         }
