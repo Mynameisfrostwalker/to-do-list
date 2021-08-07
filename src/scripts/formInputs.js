@@ -9,6 +9,10 @@ const collectInputs = (
             const description = document.querySelector('#description');
             const dueDate = document.querySelector('#dueDate');
             const priority = document.querySelector('#select');
+            if (title.value === '' || dueDate.value === '', priority.value === '') {
+                alert('No input must not be left blank');
+                return
+            }
             todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", todolist.length.toString()));
         }
         const retieveTasks = (e) => {

@@ -28,7 +28,7 @@ const aside = (
         const createLi = (name, element, text) => {
             name = document.createElement('li');
             name.classList.add('nav');
-            if (text !== 'Projects') {
+            if (text !== 'Projects' && text !== '') {
                 name.classList.add('clickable')
             }
             if (text === '') {
@@ -67,7 +67,7 @@ const body = (
         const bodHead = document.createElement('div');
         bodHead.setAttribute('id', 'bodHead')
         const bodHeadp = document.createElement('p');
-        bodHeadp.textContent = 'Default Project';
+        bodHeadp.textContent = 'Default';
         bodHead.appendChild(bodHeadp);
         const tasks = document.createElement('div');
         tasks.setAttribute('id', 'bodTasks');

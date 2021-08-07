@@ -80,18 +80,26 @@ const addEvent = (
                     e.preventDefault();
                     projectInput.projectDisplay()
                     projectInput.projectRemove()
+                    projectListListener();
                 }
             })
         }
 
         const clickableListener = () => {
-            const clickable = document.querySelector('.clickable');
+            const clickable = document.querySelectorAll('.clickable');
             clickable.forEach(elem => {
                 elem.addEventListener('click', tabSwitchLogic.changeDisplay)
             })
         }
 
-        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener, completeButtonListener, clickableListener };
+        const projectListListener = () => {
+            const projectList = document.querySelectorAll('.projectList');
+            projectList.forEach(elem => {
+                elem.addEventListener('click', tabSwitchLogic.changeDisplay)
+            })
+        }
+
+        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener, completeButtonListener, clickableListener, projectListListener };
     }
 )()
 
