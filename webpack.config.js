@@ -14,6 +14,7 @@ module.exports = {
         formInputs: './src/scripts/formInputs.js',
         todolistDisplay: './src/scripts/todolistDisplay.js',
         tabSwitch: './src/scripts/tab-switch.js',
+        projects: './src/scripts/projects.js',
     },
     devtool: 'inline-source-map',
     plugins: [

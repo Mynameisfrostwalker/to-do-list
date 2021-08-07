@@ -1,3 +1,6 @@
+import { renderTasks } from './todolistDisplay.js'
+import { collectInputs, sortTasks } from './formInputs.js';
+
 const tabSwitchLogic = (
     function() {
         const changeDisplay = (event) => {
@@ -17,13 +20,24 @@ const tabSwitchLogic = (
             }
             event.target.classList.add('active');
             for (let i = 0; i < tasksDisplay.children.length; i++) {
-                tasksDiv.children[i].remove();
+                if (tasksDiv.children[i]) {
+                    tasksDiv.children[i].remove();
+                }
             }
             if (event.target.children[1]) {
                 headText.textContent = event.target.children[1].textContent;
             } else {
                 headText.textContent = event.target.textContent;
             }
+
+            sortTasks.createNewProject(event.target.textContent);
+            renderTasks.render();
+
+            console.log(sortTasks.projectsHolder);
+            for (let i = 0; i < collectInputs.todolist.length; i++) {
+                collectInputs.todolist.pop();
+            }
+            console.log(sortTasks.projectsHolder)
         }
         return { changeDisplay }
     }

@@ -27,7 +27,7 @@ const addEvent = (
 
         const editor = (event) => {
             formDisplay.create();
-            let obj = collectInputs.retieveTasks(event);
+            let obj = collectInputs.retrieveTasks(event);
             formDisplay.editForm(obj)
             collectInputs.deleteTasks(obj.get.Id())
         }
