@@ -1,6 +1,8 @@
 import { renderTasks } from './todolistDisplay.js'
 import { collectInputs, sortTasks } from './formInputs.js';
 import { dates } from './dateProject.js';
+import _ from 'lodash';
+
 
 const tabSwitchLogic = (
     function() {
@@ -26,10 +28,10 @@ const tabSwitchLogic = (
                     tasksDiv.children[i].remove();
                 }
             }
-            if (event.target.children[1]) {
-                headText.textContent = event.target.children[1].textContent;
+            if (event.currentTarget.children[1]) {
+                headText.textContent = event.currentTarget.children[1].textContent;
             } else {
-                headText.textContent = event.target.textContent;
+                headText.textContent = event.currentTarget.textContent;
             }
 
             if (event.currentTarget.id === 'Today' || event.currentTarget.id === 'This Week') {
@@ -45,10 +47,15 @@ const tabSwitchLogic = (
 
             renderTasks.render();
 
-            console.log(sortTasks.projectsHolder);
-            for (let i = 0; i < collectInputs.todolist.length; i++) {
-                collectInputs.todolist.pop();
+            if (event.currentTarget.id === 'Today' || event.currentTarget.id === 'This Week') {
+                const sliderDiv = document.querySelectorAll('.sliderDiv');
+                const buttonsDiv = document.querySelectorAll('.buttonsDiv');
+                sliderDiv.forEach(elem => elem.remove());
+                buttonsDiv.forEach(elem => elem.remove());
             }
+
+            console.log(sortTasks.projectsHolder);
+            _.pullAll(collectInputs.todolist, [...collectInputs.todolist])
         }
         return { changeDisplay }
     }
