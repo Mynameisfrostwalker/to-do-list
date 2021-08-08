@@ -26,6 +26,15 @@
     max-height: 3rem;
 }
 
+@media screen and (max-width: 500px) {
+    #header {
+        font-size: 2rem;
+    }
+    #header i {
+        max-height: 2rem;
+    }
+}
+
 @keyframes cycle {
     0% {
         transform: rotate(0deg);
