@@ -288,3 +288,7 @@ input:checked+.slider::before {
 .projectList:hover {
     background-color: #290c0a
 }
+
+.noDisplay {
+    display: none;
+}

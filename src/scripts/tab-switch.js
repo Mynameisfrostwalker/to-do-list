@@ -1,11 +1,13 @@
 import { renderTasks } from './todolistDisplay.js'
 import { collectInputs, sortTasks } from './formInputs.js';
+import { dates } from './dateProject.js';
 
 const tabSwitchLogic = (
     function() {
         const changeDisplay = (event) => {
             const headText = document.querySelector('#bodHead').children[0];
             const tasksDisplay = document.querySelector('#bodTasks');
+            const bodAdd = document.querySelector('#bodAdd');
             const clickable = document.querySelectorAll('.clickable');
             const clickable2 = document.querySelectorAll('.projectList');
             for (let i = 0; i < clickable.length; i++) {
@@ -18,7 +20,7 @@ const tabSwitchLogic = (
                     clickable2[i].classList.remove('active');
                 }
             }
-            event.target.classList.add('active');
+            event.currentTarget.classList.add('active');
             for (let i = 0; i < tasksDisplay.children.length; i++) {
                 if (tasksDiv.children[i]) {
                     tasksDiv.children[i].remove();
@@ -30,14 +32,23 @@ const tabSwitchLogic = (
                 headText.textContent = event.target.textContent;
             }
 
-            sortTasks.createNewProject(event.target.textContent);
+            if (event.currentTarget.id === 'Today' || event.currentTarget.id === 'This Week') {
+                bodAdd.classList.add('noDisplay');
+                dates.create();
+                dates.clear();
+            } else {
+                if (bodAdd.classList.contains('noDisplay')) {
+                    bodAdd.classList.remove('noDisplay');
+                }
+                sortTasks.createNewProject(event.target.textContent);
+            }
+
             renderTasks.render();
 
             console.log(sortTasks.projectsHolder);
             for (let i = 0; i < collectInputs.todolist.length; i++) {
                 collectInputs.todolist.pop();
             }
-            console.log(sortTasks.projectsHolder)
         }
         return { changeDisplay }
     }

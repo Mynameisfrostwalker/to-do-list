@@ -1,11 +1,14 @@
-import { tasks } from './todo.js'
-import { isAfter, isBefore, isEqual } from 'date-fns'
+import { tasks } from './todo.js';
+import { isAfter, isBefore, isEqual } from 'date-fns';
+import _ from 'lodash';
 
 const collectInputs = (
     function() {
         let todolist = [];
+        let counter = [];
 
         const createTasks = () => {
+            counter.push(null);
             const title = document.querySelector('#title');
             const description = document.querySelector('#description');
             const dueDate = document.querySelector('#dueDate');
@@ -14,42 +17,54 @@ const collectInputs = (
                 alert('No input must not be left blank');
                 return
             }
-            todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", todolist.length.toString()));
+            todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", counter.length.toString()));
             sortTasks.addProject();
         }
 
         const retrieveTasks = (e) => {
+            const projectName = document.querySelector('#bodHead').children[0].textContent;
             let ident = e.currentTarget.parentNode.parentNode.getAttribute('id');
-            for (let i = 0; i < todolist.length; i++) {
-                if (ident === todolist[i].get.Id()) {
-                    return todolist[i];
+            for (let i = 0; i < sortTasks.projectsHolder[projectName].length; i++) {
+                if (ident === sortTasks.projectsHolder[projectName][i].get.Id()) {
+                    _.pullAll(todolist, [...todolist])
+                    todolist.push(...sortTasks.projectsHolder[projectName])
+                    return sortTasks.projectsHolder[projectName][i];
                 }
             }
         }
 
         const deleteTasks = (value) => {
-            for (let i = 0; i < todolist.length; i++) {
-                if (value === todolist[i].get.Id()) {
-                    todolist.splice(i, 1);
+            const projectName = document.querySelector('#bodHead').children[0].textContent;
+            for (let i = 0; i < sortTasks.projectsHolder[projectName].length; i++) {
+                if (value === sortTasks.projectsHolder[projectName][i].get.Id()) {
+                    sortTasks.projectsHolder[projectName].splice(i, 1);
+                    _.pullAll(todolist, [...todolist])
+                    todolist.push(...sortTasks.projectsHolder[projectName])
                 }
             }
-            sortTasks.addProject();
         }
 
         const changeStatus = (e) => {
+            const projectName = document.querySelector('#bodHead').children[0].textContent;
             let ident = e.currentTarget.parentNode.getAttribute('id');
-            for (let i = 0; i < todolist.length; i++) {
-                if (ident === todolist[i].get.Id()) {
-                    let oldStatus = todolist[i].get.Status();
+            for (let i = 0; i < sortTasks.projectsHolder[projectName].length; i++) {
+                if (ident === sortTasks.projectsHolder[projectName][i].get.Id()) {
+                    let oldStatus = sortTasks.projectsHolder[projectName][i].get.Status();
                     if (oldStatus === 'incomplete') {
-                        todolist[i].set.Status('complete')
+                        sortTasks.projectsHolder[projectName][i].set.Status('complete')
+                        _.pullAll(todolist, [...todolist])
+                        todolist.push(...sortTasks.projectsHolder[projectName])
+
                     } else if (oldStatus === 'complete') {
-                        todolist[i].set.Status('incomplete')
+                        sortTasks.projectsHolder[projectName][i].set.Status('incomplete')
+                        _.pullAll(todolist, [...todolist])
+                        todolist.push(...sortTasks.projectsHolder[projectName])
+
                     }
                 }
             }
-            sortTasks.addProject();
         }
+
 
         return { createTasks, todolist, retrieveTasks, deleteTasks, changeStatus };
     }
@@ -63,11 +78,16 @@ const sortTasks = (
             const projectName = document.querySelector('#bodHead').children[0].textContent;
             if (collectInputs.todolist.length !== 0) {
                 if (projectsHolder[projectName]) {
-                    projectsHolder[projectName] = [...projectsHolder[projectName], ...collectInputs.todolist];
+                    projectsHolder[projectName] = [..._.differenceWith([...projectsHolder[projectName]], [...collectInputs.todolist], _.isEqual), ...collectInputs.todolist];
                 } else {
                     projectsHolder[projectName] = [...collectInputs.todolist];
                 }
             }
+        }
+
+        const projectChange = () => {
+            const projectName = document.querySelector('#bodHead').children[0].textContent;
+            projectsHolder[projectName] = [...collectInputs.todolist];
         }
 
         const createNewProject = (pName) => {
@@ -96,7 +116,7 @@ const sortTasks = (
                 return projectsHolder[Name]
             }
         }
-        return { addProject, createSortedArr, createNewProject, projectsHolder };
+        return { addProject, createSortedArr, createNewProject, projectsHolder, projectChange };
     }
 )()
 
