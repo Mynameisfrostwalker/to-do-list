@@ -26,7 +26,16 @@ const tasks = (title, description, dueDate, priority, status, id) => {
         Status: (newStatus) => _status = newStatus,
     }
 
-    return {get, set }
+    const values = {
+        Title: _title,
+        Description: _description,
+        DueDate: _dueDate,
+        Priority: _priority,
+        Status: _status,
+        Id: _id,
+    }
+
+    return {get, set, values }
 
 }
 

@@ -15,6 +15,8 @@ module.exports = {
         todolistDisplay: './src/scripts/todolistDisplay.js',
         tabSwitch: './src/scripts/tab-switch.js',
         dateProject: './src/scripts/dateProject.js',
+        localStorage: './src/scripts/localStorage.js',
+        JsonFunction: './src/scripts/Json-function.js'
     },
     devtool: 'inline-source-map',
     plugins: [

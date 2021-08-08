@@ -1,6 +1,8 @@
 import { tasks } from './todo.js';
 import { isAfter, isBefore, isEqual } from 'date-fns';
 import _ from 'lodash';
+import JSONfn from './Json-function.js'
+import { obtainValues } from './localStorage.js'
 
 const collectInputs = (
     function() {
@@ -19,6 +21,7 @@ const collectInputs = (
             }
             todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", counter.length.toString()));
             sortTasks.addProject();
+            localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)))
         }
 
         const retrieveTasks = (e) => {
@@ -38,8 +41,9 @@ const collectInputs = (
             for (let i = 0; i < sortTasks.projectsHolder[projectName].length; i++) {
                 if (value === sortTasks.projectsHolder[projectName][i].get.Id()) {
                     sortTasks.projectsHolder[projectName].splice(i, 1);
-                    _.pullAll(todolist, [...todolist])
-                    todolist.push(...sortTasks.projectsHolder[projectName])
+                    _.pullAll(todolist, [...todolist]);
+                    todolist.push(...sortTasks.projectsHolder[projectName]);
+                    localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)));
                 }
             }
         }
@@ -54,11 +58,13 @@ const collectInputs = (
                         sortTasks.projectsHolder[projectName][i].set.Status('complete')
                         _.pullAll(todolist, [...todolist])
                         todolist.push(...sortTasks.projectsHolder[projectName])
+                        localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)))
 
                     } else if (oldStatus === 'complete') {
                         sortTasks.projectsHolder[projectName][i].set.Status('incomplete')
                         _.pullAll(todolist, [...todolist])
                         todolist.push(...sortTasks.projectsHolder[projectName])
+                        localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)))
 
                     }
                 }
