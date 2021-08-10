@@ -1,6 +1,6 @@
 import "@fortawesome/fontawesome-free/js/all";
 import { addEvent } from './events.js';
-import { collectInputs } from './formInputs.js';
+import { collectInputs, sortTasks } from './formInputs.js';
 import { renderTasks } from './todolistDisplay.js';
 import { format } from 'date-fns';
 
@@ -116,7 +116,7 @@ const projectInput = (
             const projectsButton = document.querySelector('#projects');
             projectsButton.removeEventListener('click', inputCreate);
             addEvent.projectsInputListener();
-        }
+        };
 
         const projectDisplay = () => {
             const projectName = document.querySelector('#projectInput').value;
@@ -124,16 +124,31 @@ const projectInput = (
             const li = document.createElement('li');
             li.classList.add('projectList')
             li.textContent = projectName;
+            const icon = document.createElement('i');
+            const div = document.createElement('div');
+            div.classList.add('removeButton')
+            icon.classList.add('fas');
+            icon.classList.add('fa-window-close');
             projectList.appendChild(li);
+            div.appendChild(icon);
+            li.appendChild(div);
             addEvent.projectsButtonListener();
-        }
+            addEvent.removeButtonListener();
+        };
 
-        const projectRemove = () => {
+        const projectInputRemove = () => {
             const projectInput = document.querySelector('#projectInput')
             projectInput.remove()
-        }
+        };
 
-        return { inputCreate, projectDisplay, projectRemove };
+        const projectRemove = (event) => {
+            const pName = event.currentTarget.previousSibling.textContent;
+            event.currentTarget.parentNode.remove();
+            sortTasks.deleteProject(pName);
+            event.stopPropagation();
+        };
+
+        return { inputCreate, projectDisplay, projectInputRemove, projectRemove };
     }
 )()
 

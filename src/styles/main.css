@@ -292,6 +292,7 @@ input:checked+.slider::before {
 
 .projectList {
     padding: 0.3rem;
+    display: flex;
 }
 
 .projectList:hover {

@@ -17,6 +17,7 @@ const storage = () => {
         }
         _.assignIn(sortTasks.projectsHolder, newObj);
         renderTasks.render();
+        renderTasks.renderProjects();
     } else {
         localStorage.setItem('todolist', '[]')
     }

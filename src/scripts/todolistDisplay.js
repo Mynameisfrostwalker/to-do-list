@@ -99,7 +99,30 @@ const renderTasks = (
             addEvent.deleteButtonListener();
             addEvent.completeButtonListener();
         }
-        return { render }
+
+        const renderProjects = () => {
+            for (let elem in sortTasks.projectsHolder) {
+                if (elem !== 'Default') {
+                    const projectList = document.querySelector('#projectList');
+                    const li = document.createElement('li');
+                    li.classList.add('projectList')
+                    li.textContent = elem;
+                    const icon = document.createElement('i');
+                    const div = document.createElement('div');
+                    div.classList.add('removeButton');
+                    icon.classList.add('fas');
+                    icon.classList.add('fa-window-close');
+                    projectList.appendChild(li);
+                    div.appendChild(icon);
+                    li.appendChild(div);
+                    addEvent.projectsButtonListener();
+                    addEvent.removeButtonListener();
+                }
+            }
+            addEvent.projectListListener();
+        }
+
+        return { render, renderProjects }
     }
 )()
 

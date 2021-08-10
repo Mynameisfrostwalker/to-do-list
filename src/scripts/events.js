@@ -79,7 +79,7 @@ const addEvent = (
                 if (e.keyCode === 13) {
                     e.preventDefault();
                     projectInput.projectDisplay()
-                    projectInput.projectRemove()
+                    projectInput.projectInputRemove()
                     projectListListener();
                 }
             })
@@ -99,7 +99,14 @@ const addEvent = (
             })
         }
 
-        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener, completeButtonListener, clickableListener, projectListListener };
+        const removeButtonListener = () => {
+            const removeButtons = document.querySelectorAll('.removeButton');
+            removeButtons.forEach(elem => {
+                elem.addEventListener('click', projectInput.projectRemove)
+            })
+        }
+
+        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener, completeButtonListener, clickableListener, projectListListener, removeButtonListener };
     }
 )()
 

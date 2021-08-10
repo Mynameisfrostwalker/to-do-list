@@ -102,6 +102,10 @@ const sortTasks = (
             }
         }
 
+        const deleteProject = (name) => {
+            delete projectsHolder[name];
+        }
+
         const createSortedArr = () => {
             console.log(projectsHolder)
             const Name = document.querySelector('#bodHead').children[0].textContent;
@@ -122,7 +126,7 @@ const sortTasks = (
                 return projectsHolder[Name]
             }
         }
-        return { addProject, createSortedArr, createNewProject, projectsHolder, projectChange };
+        return { addProject, createSortedArr, createNewProject, projectsHolder, projectChange, deleteProject };
     }
 )()
 
