@@ -1,15 +1,17 @@
-import { formDisplay, projectInput } from './DomDisplay.js';
-import { collectInputs } from './formInputs.js';
-import { renderTasks } from './todolistDisplay.js';
-import { tabSwitchLogic } from './tab-switch.js';
+import { formDisplay, projectInput } from './DomDisplay';
+import { collectInputs } from './formInputs';
+import { renderTasks } from './todolistDisplay';
+import { tabSwitchLogic } from './tab-switch';
+import { googleButtonSignIn, getData } from "./fireBase";
+import { display } from './initialpage.js';
+import { storage } from './localStorage.js';
+import { globalStorage } from './signInPage';
 
 const addEvent = (
     function() {
         const windowListener = () => {
-            window.addEventListener('load', function() {
-                const bodAdd = document.querySelector('div#bodAdd');
-                bodAdd.children[0].addEventListener('click', formDisplay.create);
-            })
+                const bodAdd = document.querySelector('#bodAdd');
+                bodAdd.addEventListener('click', formDisplay.create);
         }
         const submitListener = () => {
             const submit = document.querySelector('#submit');
@@ -52,7 +54,6 @@ const addEvent = (
         }
 
         const completer = (event) => {
-            console.log('b')
             collectInputs.changeStatus(event);
             renderTasks.render()
         }
@@ -60,7 +61,6 @@ const addEvent = (
         const completeButtonListener = () => {
             const sliderDiv = document.querySelectorAll('.sliderDiv');
             sliderDiv.forEach(button => {
-                console.log('a');
                 button.addEventListener('click', completer, {
                     capture: false,
                     once: true,
@@ -79,7 +79,7 @@ const addEvent = (
                 if (e.keyCode === 13) {
                     e.preventDefault();
                     projectInput.projectDisplay()
-                    projectInput.projectInputRemove()
+                    projectInput.projectRemove(e)
                     projectListListener();
                 }
             })
@@ -106,7 +106,59 @@ const addEvent = (
             })
         }
 
-        return { windowListener, submitListener, preventEnter, editButtonListener, deleteButtonListener, projectsButtonListener, projectsInputListener, completeButtonListener, clickableListener, projectListListener, removeButtonListener };
+        const intemediateSignIn = async () => {
+            const { displayName, photoURL } = await googleButtonSignIn()
+            const header = document.querySelector("#header");
+            const infoDisplay = document.createElement('div');
+            infoDisplay.id = "infoDisplay"
+            const display = document.createElement('img');
+            display.id = "display";
+            display.src = photoURL;
+            const name = document.createElement('p');
+            name.id = "name";
+            name.textContent = displayName;
+            infoDisplay.appendChild(display);
+            infoDisplay.appendChild(name);
+            header.appendChild(infoDisplay);
+            await getData()
+        }
+
+        const googleButtonListener = () => {
+            const containerDiv = document.querySelector("#googleButton");
+            containerDiv.addEventListener('click', intemediateSignIn)
+        }
+
+        const localStorageSignIn = () => {
+            globalStorage.set("local");
+            const containerDiv = document.querySelector("#signIn");
+            containerDiv.remove()
+            display.create()
+            windowListener()
+            clickableListener()
+            projectsButtonListener()
+            storage()
+        }
+
+        const localStorageButtonListener = () => {
+            const containerDiv = document.querySelector("#localStorageButton");
+            containerDiv.addEventListener('click', localStorageSignIn)
+        }
+
+        return { 
+                windowListener, 
+                submitListener, 
+                preventEnter, 
+                editButtonListener, 
+                deleteButtonListener,
+                projectsButtonListener,
+                projectsInputListener,
+                completeButtonListener,
+                clickableListener,
+                projectListListener,
+                removeButtonListener,
+                googleButtonListener,
+                localStorageButtonListener,
+            };
     }
 )()
 

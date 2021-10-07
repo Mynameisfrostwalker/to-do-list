@@ -54,7 +54,6 @@ const tabSwitchLogic = (
                 buttonsDiv.forEach(elem => elem.remove());
             }
 
-            console.log(sortTasks.projectsHolder);
             _.pullAll(collectInputs.todolist, [...collectInputs.todolist])
         }
         return { changeDisplay }

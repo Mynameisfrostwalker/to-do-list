@@ -102,7 +102,7 @@ const renderTasks = (
 
         const renderProjects = () => {
             for (let elem in sortTasks.projectsHolder) {
-                if (elem !== 'Default') {
+                if (elem !== 'Default' && elem !== 'Today' && elem !== 'This Week') {
                     const projectList = document.querySelector('#projectList');
                     const li = document.createElement('li');
                     li.classList.add('projectList')

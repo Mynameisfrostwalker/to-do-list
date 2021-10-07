@@ -2,14 +2,10 @@ import { display } from './initialpage.js';
 import '../styles/main.css';
 import { addEvent } from './events.js';
 import { storage } from './localStorage.js'
+import { signIn } from './signInPage';
 
+signIn();
 
-display.create();
+addEvent.googleButtonListener();
 
-addEvent.windowListener();
-
-addEvent.clickableListener();
-
-addEvent.projectsButtonListener();
-
-storage();
+addEvent.localStorageButtonListener();

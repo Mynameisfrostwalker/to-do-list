@@ -16,7 +16,9 @@ module.exports = {
         tabSwitch: './src/scripts/tab-switch.js',
         dateProject: './src/scripts/dateProject.js',
         localStorage: './src/scripts/localStorage.js',
-        JsonFunction: './src/scripts/Json-function.js'
+        JsonFunction: './src/scripts/Json-function.js',
+        fireBase: './src/scripts/fireBase.js',
+        signInPage: './src/scripts/signInPage.js',
     },
     devtool: 'inline-source-map',
     plugins: [
@@ -51,5 +53,8 @@ module.exports = {
         splitChunks: {
             chunks: 'all',
         },
+    },
+    experiments: {
+        topLevelAwait: true,
     },
 };

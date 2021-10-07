@@ -1,15 +1,19 @@
-import "@fortawesome/fontawesome-free/js/all"
+import "@fortawesome/fontawesome-free/js/all";
+import { globalStorage } from './signInPage';
 
 const head = (
     function() {
         const header = document.createElement('div');
+        const div = document.createElement('div');
+        div.id = "begin";
         header.setAttribute('id', 'header');
         const myFan = document.createElement('i');
         myFan.innerHTML = '<i class="fas fa-fan"></i>'
         const para = document.createElement('p');
         para.textContent = 'Your To-Do-List';
-        header.appendChild(myFan);
-        header.appendChild(para);
+        div.appendChild(myFan);
+        div.appendChild(para);
+        header.appendChild(div);
         return { header }
     }
 )()

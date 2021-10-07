@@ -3,6 +3,8 @@ import { isAfter, isBefore, isEqual } from 'date-fns';
 import _ from 'lodash';
 import JSONfn from './Json-function.js'
 import { obtainValues } from './localStorage.js'
+import { globalStorage } from './signInPage'
+import { uploadTask, deleteTask, updateStatus, removeProject }  from "./fireBase"
 
 const collectInputs = (
     function() {
@@ -19,9 +21,10 @@ const collectInputs = (
                 alert('No input must not be left blank');
                 return
             }
-            todolist.push(tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", counter.length.toString()));
+            const currentTask = tasks(title.value, description.value, dueDate.value, priority.value, "incomplete", counter.length.toString());
+            todolist.push(currentTask);
             sortTasks.addProject();
-            localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)))
+            globalStorage.value === "local" ? localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder))) : uploadTask(currentTask);
         }
 
         const retrieveTasks = (e) => {
@@ -40,10 +43,10 @@ const collectInputs = (
             const projectName = document.querySelector('#bodHead').children[0].textContent;
             for (let i = 0; i < sortTasks.projectsHolder[projectName].length; i++) {
                 if (value === sortTasks.projectsHolder[projectName][i].get.Id()) {
-                    sortTasks.projectsHolder[projectName].splice(i, 1);
+                    const removed = sortTasks.projectsHolder[projectName].splice(i, 1);
                     _.pullAll(todolist, [...todolist]);
                     todolist.push(...sortTasks.projectsHolder[projectName]);
-                    localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)));
+                    globalStorage.value === "local" ? localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder))) :  deleteTask(removed[0]);
                 }
             }
         }
@@ -58,13 +61,13 @@ const collectInputs = (
                         sortTasks.projectsHolder[projectName][i].set.Status('complete')
                         _.pullAll(todolist, [...todolist])
                         todolist.push(...sortTasks.projectsHolder[projectName])
-                        localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)))
+                        globalStorage.value === "local" ? localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder))) : updateStatus(sortTasks.projectsHolder[projectName][i]);
 
                     } else if (oldStatus === 'complete') {
                         sortTasks.projectsHolder[projectName][i].set.Status('incomplete')
                         _.pullAll(todolist, [...todolist])
                         todolist.push(...sortTasks.projectsHolder[projectName])
-                        localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder)))
+                        globalStorage.value === "local" ? localStorage.setItem('todolist', JSONfn.stringify(obtainValues(sortTasks.projectsHolder))) : updateStatus(sortTasks.projectsHolder[projectName][i]);
 
                     }
                 }
@@ -104,10 +107,10 @@ const sortTasks = (
 
         const deleteProject = (name) => {
             delete projectsHolder[name];
+            removeProject(name);
         }
 
         const createSortedArr = () => {
-            console.log(projectsHolder)
             const Name = document.querySelector('#bodHead').children[0].textContent;
             if (projectsHolder[Name].length > 1) {
                 const sorted = projectsHolder[Name].sort(function(a, b) {
